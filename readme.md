@@ -1,62 +1,29 @@
-# Metacrafters Project
+# Functions and Errors handling contract
 
-This repository contains the source code for the `MyContract` smart contract. The contract is written in Solidity version 0.8.0 and implements the `withdraw` function with require, assert, and revert statements, along with the `getContractBalance` function.
+This Solidity program is a simple "Fund Transaction" program that demonstrates the knowledge of error handeling(revert, require, assert) functionality in Solidity programming language.
 
-## Prerequisites
+# Description
 
-Before running the smart contract, make sure you have the following prerequisites installed:
+This is the program to demosatrate the use of revert, require, assert in solidity.
 
-- Solidity compiler (version 0.8.0)
-- Ethereum development environment (e.g., Remix, Truffle, Hardhat)
+The contract is named wallet and is specified to be licensed under the MIT license. The contract uses a Solidity version equal to or greater than 0.8.18.
 
-## Getting Started
+### Contract Variables:
 
-Follow the steps below to get started with the `MyContract` smart contract:
+totalAmount: A public unsigned integer variable that represents the total balance of the wallet. It stores the amount of funds available in the wallet. owner: An address variable that represents the owner of the wallet. It is set to the address of the contract deployer.
 
-1. Clone this repository to your local machine.
-2. Open the project in your preferred Ethereum development environment.
-3. Compile the smart contract using the Solidity compiler.
-4. Deploy the contract to your preferred Ethereum network.
-5. Interact with the contract using the provided functions.
+### Constructor:
 
-## Contract Details
+The constructor is defined with a single parameter uint \_totalAmount. When the contract is deployed, the \_totalAmount value is passed as an argument. Inside the constructor, the totalAmount variable is initialized with the provided \_totalAmount value. The owner variable is set to the address of the contract deployer, accessed using msg.sender.
 
-### Description
+### Function: transfer
 
-The `MyContract` contract allows the contract owner to withdraw funds from the contract balance. The contract owner is set during the contract deployment.
+This function is used to transfer funds from the wallet to a specified recipient address (sendTo).
 
-### Functions
+It takes three parameters: amount: The amount of funds to be transferred. tax: The tax or fee to be deducted from the transferred amount. sendTo: The address to which the funds will be transferred.
 
-#### `constructor()`
+Within the function, the amount and tax are added together to calculate amountTOBeDeducted, representing the total amount to be deducted from the totalAmount balance. The totalAmount is decreased by amountTOBeDeducted to reflect the deduction from the wallet balance. The function includes a check to ensure that the tax value is less than the amount value, and if not, it reverts the transaction with an error message. It also includes a requirement that the amountTOBeDeducted value is less than the current totalAmount, ensuring that the wallet has sufficient funds to cover the transfer. Finally, an assert statement is used to verify that the owner address is not the same as the sendTo address. This ensures that the owner cannot transfer funds to themselves.
 
-The constructor function is executed once during contract deployment. It sets the contract owner to the address of the message sender.
+### Function: getamount
 
-#### `withdraw(uint amount)`
-
-The `withdraw` function allows the contract owner to withdraw a specified amount of funds from the contract balance. It includes several checks using require statements to ensure the withdrawal conditions are met:
-
-- The amount must be greater than zero.
-- The contract balance must be equal to or greater than the requested amount.
-
-If the require conditions are satisfied, the function attempts to transfer the funds to the message sender using the `call` function. The `assert` statement checks if the transfer was successful. If the transfer fails, the function reverts with an error message using the `revert` statement.
-
-#### `getContractBalance()`
-
-The `getContractBalance` function is a view function that returns the current balance of the contract.
-
-## Usage
-
-To use the `MyContract` smart contract, follow these steps:
-
-1. Deploy the contract by calling the constructor function.
-2. As the contract owner, call the `withdraw` function and provide the amount to withdraw.
-3. Verify that the withdrawal conditions are satisfied and the transfer is successful.
-4. To check the current balance of the contract, call the `getContractBalance` function.
-
-## Authors
-
-Javed Ansari
-
-## Credits
-
-This project is a solution to the project task provided by MetaCrafters.
+This function is a simple getter function that returns the current value of totalAmount. It is marked as view to indicate that it does not modify the contract's state. Overall, this contract provides a basic functionality of a wallet with a transfer method that deducts a specified tax from the transferred amount and performs validation checks.
