@@ -27,3 +27,7 @@ Within the function, the amount and tax are added together to calculate amountTO
 ### Function: getamount
 
 This function is a simple getter function that returns the current value of totalAmount. It is marked as view to indicate that it does not modify the contract's state. Overall, this contract provides a basic functionality of a wallet with a transfer method that deducts a specified tax from the transferred amount and performs validation checks.
+
+## Authors
+
+Javed Ansari
